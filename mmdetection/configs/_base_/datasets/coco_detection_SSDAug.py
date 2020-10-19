@@ -59,29 +59,4 @@ data = dict(
         img_prefix=data_root + 'val2017/',
         pipeline=test_pipeline))
 
-# data = dict(
-#     samples_per_gpu=2,
-#     workers_per_gpu=2,
-#     type = 'ClassBalancedDataset',
-#     oversampe_thr = 0.3,
-#     train=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'annotations/filtered_train.json',
-#         img_prefix=data_root + 'new_cartruck/',
-#         pipeline=train_pipeline))
-
-# data = dict(
-#     samples_per_gpu=2,
-#     workers_per_gpu=2,        
-#     val=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'annotations/instances_val2017.json',
-#         img_prefix=data_root + 'val2017/',
-#         pipeline=test_pipeline),
-#     test=dict(
-#         type=dataset_type,
-#         ann_file=data_root + 'annotations/instances_val2017.json',
-#         img_prefix=data_root + 'val2017/',
-#         pipeline=test_pipeline))
-
 evaluation = dict(interval=1, metric='bbox')

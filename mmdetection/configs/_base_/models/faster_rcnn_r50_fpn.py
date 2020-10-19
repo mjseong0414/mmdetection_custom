@@ -21,9 +21,9 @@ model = dict(
         feat_channels=256,
         anchor_generator=dict(
             type='AnchorGenerator',
-            scales=[8],
-            ratios=[0.5, 1.0, 2.0],
-            strides=[4, 8, 16, 32, 64]),
+            scales=[8],# anchor scale
+            ratios=[0.5, 1.0, 2.0], # height와 width 사이의 anchor 비율. 2.0 => height : width = 2 : 1
+            strides=[4, 8, 16, 32, 64]), # scale이랑 비슷한 개념
         bbox_coder=dict(
             type='DeltaXYWHBBoxCoder',
             target_means=[.0, .0, .0, .0],
