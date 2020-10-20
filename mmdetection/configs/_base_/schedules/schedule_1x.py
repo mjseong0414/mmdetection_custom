@@ -7,5 +7,5 @@ lr_config = dict(
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=0.001,
-    step=[8, 11])
+    step=[2, 11]) # 3, 12에폭 시작할 때 lr을 1/10 줄임
 total_epochs = 12
