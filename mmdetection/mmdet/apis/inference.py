@@ -5,7 +5,7 @@ import mmcv
 import numpy as np
 import torch
 from mmcv.ops import RoIAlign, RoIPool
-from mmcv.parallel import collate, scatter
+from mmcv.parallel import collate, scatter, MMDataParallel
 from mmcv.runner import load_checkpoint
 
 from mmdet.core import get_classes
@@ -42,6 +42,7 @@ def init_detector(config, checkpoint=None, device='cuda:0'):
             warnings.warn('Class names are not saved in the checkpoint\'s '
                           'meta data, use COCO classes by default.')
             model.CLASSES = get_classes('coco')
+    model = MMDataParallel(model, device_ids=[0]) # 직접 추가한 코드
     model.cfg = config  # save the config in the model for convenience
     model.to(device)
     model.eval()

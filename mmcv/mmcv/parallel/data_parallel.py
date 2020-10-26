@@ -42,6 +42,7 @@ class MMDataParallel(DataParallel):
             return super().forward(*inputs, **kwargs)
 
     def scatter(self, inputs, kwargs, device_ids):
+        # [inputs = ()], [kwargs = return_loss, rescale, **data], [self.dim = 0]
         return scatter_kwargs(inputs, kwargs, device_ids, dim=self.dim)
 
     def train_step(self, *inputs, **kwargs):
