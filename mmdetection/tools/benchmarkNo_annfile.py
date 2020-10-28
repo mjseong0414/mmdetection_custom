@@ -46,24 +46,15 @@ def main():
 
     # benchmark with 2000 image and take the average
     for i, data in enumerate(images):
-        torch.cuda.synchronize() # pytorch에서 cuda호출이 비동기식이어서 타이머를 시작, 중지 직전에 동기화시켜줘야함.
-        start_time = time.perf_counter()
         
         img_for_inference = frame_path + "/" + data
-        inference_detector(model, img_for_inference)
-
-        # with torch.no_grad():
-        #     # model(return_loss=False, rescale=True, **data)
-        #     model(return_loss= True, rescale=True, **data)
-
-        torch.cuda.synchronize()
-        elapsed = time.perf_counter() - start_time
+        result, elapsed = inference_detector(model, img_for_inference)
 
         if i >= num_warmup:
             pure_inf_time += elapsed
             if (i + 1) % args.log_interval == 0:
                 fps = (i + 1 - num_warmup) / pure_inf_time
-                print(f'Done image [{i + 1:<3}/ 10000], fps: {fps:.1f} img / s')
+                print(f'Done image [{i + 1:<3}/ 2000], fps: {fps:.1f} img / s')
 
         if (i + 1) == 2000:
             pure_inf_time += elapsed
