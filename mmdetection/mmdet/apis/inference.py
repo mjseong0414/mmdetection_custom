@@ -120,16 +120,16 @@ def inference_detector(model, img):
         data['img_metas'] = data['img_metas'][0].data
 
     # forward the model and time check
-    torch.cuda.synchronize()
-    start_time = time.perf_counter()
+    #torch.cuda.synchronize()
+    #start_time = time.perf_counter()
 
     with torch.no_grad():
         result = model(return_loss=False, rescale=True, **data)[0]
     
-    torch.cuda.synchronize()
-    elapsed = time.perf_counter() - start_time
+    #torch.cuda.synchronize()
+    #elapsed = time.perf_counter() - start_time
 
-    return result, elapsed
+    return result
 
 
 async def async_inference_detector(model, img):

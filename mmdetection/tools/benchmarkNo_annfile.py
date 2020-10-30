@@ -34,8 +34,8 @@ def parse_args():
 def main():
     args = parse_args()
     
-    # frame_path = "./data/coco/val2017/"
-    frame_path = "./data/person_test/"
+    frame_path = "./data/coco/val2017/"
+    # frame_path = "./data/person_test/"
     # build the model and load checkpoint
     model = init_detector(args.config, args.checkpoint, device= 'cuda:0')
     images = sorted(os.listdir(frame_path))
@@ -48,6 +48,7 @@ def main():
     for i, data in enumerate(images):
         
         img_for_inference = frame_path + "/" + data
+        # inference.py의 inference_detector함수에서 elapsed하는 코드 추가해줘야 함
         result, elapsed = inference_detector(model, img_for_inference)
 
         if i >= num_warmup:

@@ -30,15 +30,23 @@ test_pipeline = [
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
+    # train=dict(
+    #     type='ClassBalancedDataset',
+    #     oversample_thr=0.3,
+    #     dataset=dict(
+    #         type=dataset_type,
+    #         ann_file=data_root + 'annotations/filtered_train.json',
+    #         img_prefix=data_root + 'coco_PersonCarTruckCatDog_train/',
+    #         pipeline=train_pipeline,
+    #         )),
     train=dict(
-        type='ClassBalancedDataset',
-        oversample_thr=0.3,
-        dataset=dict(
-            type=dataset_type,
-            ann_file=data_root + 'annotations/filtered_train.json',
-            img_prefix=data_root + 'coco_carTruck_train/',
-            pipeline=train_pipeline,
-            )),
+        type=dataset_type,
+        ann_file=[data_root + 'annotations/filtered_CarTruck.json', './data/open_images_downloader/image/annotations/carTruck_train-annotations-bbox.json'],
+        img_prefix = [data_root + 'coco_CarTruck/', './data/open_images_downloader/image/train/'],
+        # ann_file='./data/open_images_downloader/image/annotations/carTruck_train-annotations-bbox.json',
+        # img_prefix='./data/open_images_downloader/image/train/',
+        pipeline=train_pipeline,
+        ),
     val=dict(
         type=dataset_type,
         # ann_file=[data_root + 'annotations/instances_val2017.json', data_root + 'annotations/car_truck_openImage_val.json']

@@ -14,8 +14,8 @@ def main():
     checkpoint_file = args.checkpoint
 
     model = init_detector(config_file, checkpoint_file, device= 'cuda:0')
-    image_path = os.path.abspath("./data/person_test/")
-    result_path = os.path.abspath("./data/image_inference_result01")
+    image_path = os.path.abspath("./data/only_carTruck_frame/")
+    result_path = os.path.abspath("./data/only_carTruck_inference")
     images = sorted(os.listdir(image_path))
     integer = 0
 
