@@ -70,7 +70,7 @@ def build_dataset(cfg, default_args=None):
     else:
         dataset = build_from_cfg(cfg, DATASETS, default_args)
 
-    return dataset
+    return dataset # 이게 train.py에서 사용될 dataset
 
 
 def build_dataloader(dataset,

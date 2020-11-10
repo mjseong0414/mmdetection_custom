@@ -42,8 +42,8 @@ class CocoDataset(CustomDataset):
     #            'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
     #            'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
-    # CLASSES = ('person', 'car', 'truck', 'cat', 'dog')
-    CLASSES = ('car', 'truck')
+    CLASSES = ('person', 'car', 'truck', 'cat', 'dog')
+    # CLASSES = ('car', 'truck')
 
     def load_annotations(self, ann_file):
         """Load annotation from COCO style annotation file.
@@ -55,7 +55,7 @@ class CocoDataset(CustomDataset):
             list[dict]: Annotation info from COCO api.
         """
         self.coco = COCO(ann_file)
-        self.cat_ids = self.coco.get_cat_ids(cat_names=self.CLASSES) # specify a list of category names of interest
+        self.cat_ids = self.coco.get_cat_ids(cat_names="cat") # specify a list of category names of interest
         self.cat2label = {cat_id: i for i, cat_id in enumerate(self.cat_ids)}
         self.img_ids = self.coco.get_img_ids()
         data_infos = []
@@ -89,7 +89,6 @@ class CocoDataset(CustomDataset):
         Returns:
             list[int]: All categories in the image of specified index.
         """
-
         img_id = self.data_infos[idx]['id']
         ann_ids = self.coco.get_ann_ids(img_ids=[img_id])
         ann_info = self.coco.load_anns(ann_ids)

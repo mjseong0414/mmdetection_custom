@@ -27,6 +27,34 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
+dataset_A_train = dict(
+    type = dataset_type,
+    ann_file = data_root + 'annotations/filtered_CarTruck.json',
+    img_prefix = data_root + 'coco_CarTruck/',
+    pipeline = train_pipeline
+)
+
+dataset_B_train = dict(
+    type = dataset_type,
+    ann_file = './data/open_images_downloader/image/annotations/carTruck_train-annotations-bbox.json',
+    img_prefix = './data/open_images_downloader/image/train/',
+    pipeline = train_pipeline
+)
+
+dataset_A_val = dict(
+    type = dataset_type,
+    ann_file = data_root + 'annotations/filtered_CarTruck.json',
+    img_prefix = data_root + 'coco_CarTruck/',
+    pipeline = test_pipeline
+)
+
+dataset_B_val = dict(
+    type = dataset_type,
+    ann_file = './data/open_images_downloader/image/annotations/carTruck_train-annotations-bbox.json',
+    img_prefix = './data/open_images_downloader/image/train/',
+    pipeline = test_pipeline
+)
+
 data = dict(
     samples_per_gpu=2,
     workers_per_gpu=2,
@@ -39,22 +67,15 @@ data = dict(
     #         img_prefix=data_root + 'coco_PersonCarTruckCatDog_train/',
     #         pipeline=train_pipeline,
     #         )),
-    train=dict(
-        type=dataset_type,
-        ann_file=data_root + 'annotations/person10000_krri_v2.json',
-        img_prefix = data_root + 'person10000/',
-        # ann_file='./data/open_images_downloader/image/annotations/carTruck_train-annotations-bbox.json',
-        # img_prefix='./data/open_images_downloader/image/train/',
-        # separate_eval = True,
-        pipeline=train_pipeline,
-        ),
+    train=[
+        dataset_A_train,
+        dataset_B_train
+    ],
     val=dict(
-        type=dataset_type,
-        # ann_file=[data_root + 'annotations/instances_val2017.json', data_root + 'annotations/car_truck_openImage_val.json']
+        type='ConcatDataset',
+        datasets = [dataset_A_val, dataset_B_val],
         # separate_eval = False, # 연결한 데이터들 전체를 eval
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline),
+        ),
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_val2017.json',

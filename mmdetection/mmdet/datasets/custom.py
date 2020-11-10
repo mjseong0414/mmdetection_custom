@@ -80,6 +80,7 @@ class CustomDataset(Dataset):
                                               self.proposal_file)
         # load annotations (and proposals)
         self.data_infos = self.load_annotations(self.ann_file)
+        
         # filter data infos if classes are customized
         if self.custom_classes:
             self.data_infos = self.get_subset_by_classes()
@@ -89,9 +90,10 @@ class CustomDataset(Dataset):
         else:
             self.proposals = None
         # filter images too small
+        
         if not test_mode:
             valid_inds = self._filter_imgs()
-            self.data_infos = [self.data_infos[i] for i in valid_inds]
+            self.data_infos = [self.data_infos[i] for i in valid_inds] # self.data_infos가 14714개
             if self.proposals is not None:
                 self.proposals = [self.proposals[i] for i in valid_inds]
         # set group flag for the sampler
