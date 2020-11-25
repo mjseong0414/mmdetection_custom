@@ -12,7 +12,6 @@ from mmdet.core import get_classes
 from mmdet.datasets.pipelines import Compose
 from mmdet.models import build_detector
 
-
 def init_detector(config, checkpoint=None, device='cuda:0'):
     """Initialize a detector from config file.
 
@@ -42,7 +41,7 @@ def init_detector(config, checkpoint=None, device='cuda:0'):
             warnings.warn('Class names are not saved in the checkpoint\'s '
                           'meta data, use COCO classes by default.')
             model.CLASSES = get_classes('coco')
-    model = MMDataParallel(model, device_ids=[0]) # 직접 추가한 코드
+    # model = MMDataParallel(model, device_ids=[0]) # 직접 추가한 코드, inference time 체크할 때 사용
     model.cfg = config  # save the config in the model for convenience
     model.to(device)
     model.eval()

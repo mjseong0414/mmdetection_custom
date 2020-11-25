@@ -16,7 +16,7 @@ from mmdet.apis import train_detector
 
 @DATASETS.register_module()
 class KrriDataset(CustomDataset):
-    CLASSES = ('fork_lift', 'yard_chassis', 'truck', 'car')
+    CLASSES = ('fork_lift', 'yard_chassis', 'yard_truck', 'truck_etc', 'car')
 
     def load_annotations(self, ann_file):
         cat2label = {k: i for i, k in enumerate(self.CLASSES)}
@@ -31,7 +31,7 @@ class KrriDataset(CustomDataset):
             height, width = image.shape[:2]
             
             # {'filename': ~~, 'width' : 1224, 'height' : 370}
-            images_data_info = dict()
+            images_data_info = dict("images":[])
             data_info = dict(filename=f'{image_id}', width=width, height=height)
             import pdb; pdb.set_trace()
             # load annotations

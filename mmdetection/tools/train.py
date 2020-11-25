@@ -27,7 +27,7 @@ def parse_args():
     parser.add_argument(
         '--no-validate',
         action='store_true',
-        help='whether not to evaluate the checkpoint during training')
+        help='whether not to evaluate the checkpoint during training') # train 시킬때 --no-validate를 적어주면 eval안됨.
     group_gpus = parser.add_mutually_exclusive_group()
     group_gpus.add_argument(
         '--gpus',

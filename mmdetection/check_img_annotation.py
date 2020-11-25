@@ -2,6 +2,10 @@ import os
 import cv2
 import argparse
 
+'''
+깨진 이미지가 있는지 없는지 확인하는 코드
+'''
+
 def main():
     parser = parser = argparse.ArgumentParser(description='check image')
     parser.add_argument('--img_path', help="image path")

@@ -32,16 +32,14 @@ def main():
     ##print(len(video)) # get the total frame number
     # print(video.width, video.height, video.resolution, video.fps)
     # ex) start = 150(기존 영상의 10초부터 시작), max_num = 785 -------------------> 기존 영상의 19초부터 
-    video.cvt2frames(frame_path, start= 0, max_num= 300) # frame을 (H, W, C) = (960, 1280, 3)으로 만들게 됨, 0~600 frame이 40초 영상으로 변환됨
-    # mmcv.frames2video(frame_path, avi_path, fps= 15)
+    video.cvt2frames(frame_path, start= 0, max_num= 10) # frame을 (H, W, C) = (960, 1280, 3)으로 만들게 됨, 0~600 frame이 40초 영상으로 변환됨
     
     ######### 2. implements inference
     model = init_detector(config_file, checkpoint_file, device= 'cuda:0')
     images = sorted(os.listdir(frame_path))
     integer = 0
-
     # images에 있는 image를 하나씩 뽑아가면서 inference 시켜야함
-    for imgs in images: 
+    for imgs in images:
         img_for_inference = frame_path + "/" + imgs
         result = inference_detector(model, img_for_inference)
         last_path = inference_path + "/{0:06d}".format(integer) + ".jpg"
